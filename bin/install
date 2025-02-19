@@ -39,6 +39,12 @@ install_tool() {
 
   echo "Downloading [${binary_name}] from ${download_url} to ${download_path}"
   curl -Lo "$download_path" "$download_url"
+  echo "Downloading [${binary_name}] from ${download_url} to ${download_path}"
+  if ! curl -fLo "$download_path" "$download_url"; then
+    echo "Error: Failed to download from ${download_url}"
+    echo "The binary might not exist for your platform (${platform})"
+    exit 1
+  fi
 
   echo "Creating bin directory"
   mkdir -p "${bin_install_path}"
